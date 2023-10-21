@@ -1,2 +1,3 @@
-defi-staking-app-starter/node_modules/
+./node_modules/
 .vscode/
+./node-v8.8.0-linux-x64.tar.gz.1
