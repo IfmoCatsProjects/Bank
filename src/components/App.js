@@ -85,12 +85,12 @@ class App extends Component{
   }
   stateTokens=(amount)=>{
     this.setState({loading:true})
-    this.state.tether.methods.approve(this.state.decentralBank._address,amount)
-    this.state.decentralBank.methods.depositTokens(amount).
+   // this.state.tether.methods.approve(this.state.decentralBank._address,amount)
+    this.state.bank.methods.depositTokens(amount).
     send({from:this.state.account})
-    .on('transactionHash',hash=>{this.setState({loading:false})})
+    .on('transactionHash',(hash)=>{this.setState({loading:false})})
   }
-  unstateTokens=(amount)=>{
+  unstateTokens=()=>{
     this.setState({loading:true})
     
     this.state.decentralBank.methods.unstakeTokens().
@@ -119,6 +119,8 @@ class App extends Component{
         rwdBalance={this.state.rwdBalance}
         stakingBalance={this.state.stakingBalance}
         stateTokens={this.stateTokens}
+        unstateTokens={this.unstateTokens}
+
         />} 
       return (
           

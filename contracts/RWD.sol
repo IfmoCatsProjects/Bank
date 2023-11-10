@@ -33,7 +33,7 @@ constructor()public{
 mapping(address=>mapping(address=>uint))public permissionedValueToSend; 
 
 function transfer(address _to,uint value)public returns(bool success){
-require(balance[msg.sender]>=value && value>0,'Error during transfering.Value is incorrect');
+//require(balance[msg.sender]>=value && value>0,'Error during transfering.Value is incorrect');
 balance[msg.sender]-=value;
 balance[_to]+=value;
 emit Transfer(msg.sender, _to, value,true);
