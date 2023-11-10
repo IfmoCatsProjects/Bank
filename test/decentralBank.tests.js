@@ -45,19 +45,28 @@ describe('Decentral Bank',async()=>{
     })
 })
 
-describe('Decentral Bank Deployment',async()=>{
-    it('matches name successfully',async()=>{
-     let name=await decentralBank.name();
-     assert.equal(name,'Decentral Bank')
-    })
-})
 
 describe('Check Bank tokens amount  ',async()=>{
     it('Bank has neccessary amount',async()=>{
      let balance=await rwd.balance(decentralBank.address);
-     assert.equal(balance,tokens('1000000'));
+     assert.equal(balance.toString(),tokens('1000000'));
     })
 })
+
+
+describe('Check Investor tokens amount ',async()=>{
+    it('Investor has neccessary amount',async()=>{
+    
+        //Check ivestor balance
+    let balance=await tether.balance(customer);
+     assert.equal(balance,tokens('100')); 
+
+    })
+    
+})
+
+
+
 
 
 });

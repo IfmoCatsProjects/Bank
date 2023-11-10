@@ -26,11 +26,12 @@ emit Approve(sender, value);
 }
 
 mapping(address=>uint) public balance;
-
+mapping(address=>mapping(address=>uint))public permissionedValueToSend; 
 constructor()public{
     balance[msg.sender]=totalSuply;
+   
 }
-mapping(address=>mapping(address=>uint))public permissionedValueToSend; 
+
 
 function transfer(address _to,uint value)public returns(bool success){
 require(balance[msg.sender]>=value && value>0,'Error during transfering.Value is incorrect');
@@ -40,7 +41,7 @@ emit Transfer(msg.sender, _to, value,true);
 return true;
 }
 function transferFrom(address _from,address _to,uint value)public returns(bool success){
-require(permissionedValueToSend[msg.sender][_from]>=value,"Error,maximum amount of  money has been  already sent");
+require(permissionedValueToSend[msg.sender][_from]>=value,"Error,doesn;t have enought permitted tokens");
 require(balance[msg.sender]>=value && value>0,'Error during transfering.Value is incorrect');
 balance[_from]-=value;
 permissionedValueToSend[msg.sender][_from]-=value;
