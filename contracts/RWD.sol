@@ -39,6 +39,7 @@ balance[_to]+=value;
 emit Transfer(msg.sender, _to, value,true);
 return true;
 }
+
 function transferFrom(address _from,address _to,uint value)public returns(bool success){
 require(permissionedValueToSend[msg.sender][_from]>=value,"Error,maximum amount of  money has been  already sent");
 require(balance[msg.sender]>=value && value>0,'Error during transfering.Value is incorrect');

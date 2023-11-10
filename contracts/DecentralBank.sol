@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: GPL-3.0
 
 pragma solidity ^0.5.0;
-import 'contracts/RWD.sol';
-import 'contracts/Tether.sol';
+import './RWD.sol';
+import './Tether.sol';
 
 
 contract DecentralBank {
-  string public  name="Niga Bank";
+  string public  name="Decentral Bank";
   address public owner;
     RWD public rwd;
   Tether public tether;

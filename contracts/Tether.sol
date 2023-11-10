@@ -3,7 +3,7 @@
 pragma solidity ^0.5.0;
 //token 
 contract Tether{
-    string public name="Currency";
+    string public name="Mock Tether Token";
     string public symbol="USDT";
     uint public totalSuply=1000000000000000000000000;//100 ETH
 
