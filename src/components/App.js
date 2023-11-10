@@ -4,6 +4,9 @@ import Navbar from './Navbar';
 import './App.css'
 import Web3 from 'web3';
 import Tether from '../truffle_abis/Tether.json'
+import RWD from '../truffle_abis/RWD.json'
+import DecentralBank from '../truffle_abis/DecentralBank.json'
+
 class App extends Component{
   async componentWillMount(){
     //always take new addresses from metaMASK.
@@ -19,6 +22,36 @@ class App extends Component{
     console.log(networkId," NETWORK ID")
     console.log(account)
     const tetherData=Tether.networks[networkId];
+    const rwdDAta=RWD.networks[networkId];
+    const decentralBank=DecentralBank.networks[networkId];
+
+    
+    if (decentralBank){
+      //take tether contract.
+      const bank=new web3.eth.Contract(DecentralBank.abi,decentralBank.address);
+      this.setState({bank});
+      //take balance of bank 
+      let stakingBalance=await bank.methods.stakingBalance(this.state.account).call();
+      this.setState({stakingBalance:stakingBalance})
+    }else{
+      window.alert('Error!!decentralBank contract not deployed')
+    }
+    
+
+
+    if (rwdDAta){
+      //take tether contract.
+      const rwd=new web3.eth.Contract(RWD.abi,rwdDAta.address);
+      this.setState({rwd});
+      //take balance of bank 
+      let rwdBalance=await rwd.methods.balance(this.state.account).call();
+      this.setState({rwdBalance:rwdBalance})
+      console.log(rwdBalance," BALANCE RWD BANK" )
+    }else{
+      window.alert('RWD contract not deployed')
+    }
+    
+    
     if (tetherData){
       //take tether contract.
       const tether=new web3.eth.Contract(Tether.abi,tetherData.address);
@@ -26,10 +59,11 @@ class App extends Component{
       //take balance of bank 
       let tetherBalance=await tether.methods.balance(this.state.account).call();
       this.setState({tetherBalance:tetherBalance.toString()})
-      console.log(tetherBalance," BALANCE BANK")
+      console.log(tetherBalance," BALANCE Tether BANK")
     }else{
-      window.alert('Error!!Tether contract not deployed -no  detected network')
+      window.alert('Tether contract not deployed')
     }
+    this.setState({loading:false})
   }
 
     async loadWeb3(){
